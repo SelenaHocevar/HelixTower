@@ -44,7 +44,7 @@ void draw_Sphere()
 
     glPushMatrix();
     
-    glTranslatef(0,-3,0);
+    //glTranslatef(0,-3,0);
     for (u = 0; u < PI*2; u += PI / 200) {
         glBegin(GL_TRIANGLE_STRIP);
         for (v = 0; v <= PI*2 + EPSILON; v += PI / 20) {

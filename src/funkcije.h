@@ -5,5 +5,6 @@ void set_normal_and_vertex(float u,float v);
 void set_normal_and_vertexSphere(float u, float v);
 void draw_Sphere();
 void draw_Cylinder();
+void nacrtaj_horizontalni_zidic(int i);
 
 #endif
