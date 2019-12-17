@@ -3,20 +3,19 @@
     Kreirani su valjak i lopta
     Ukljuceno je osvetljenje
 
-*************************************
+**********************************************************************
 
 2. nedelja:
     Postavljene su pocetne prepreke
     Ubacene su osnovne komande za pomeranje prepreka
     Zapocet rad na animaciji loptice
+    
+**********************************************************************
 
-Plan za 3. nedelju:
-    Zavrsiti rad na animaciji loptice:
-        registrovanje udarca, 
-        odskakanje kada udari u prepreku
-    Postaviti polja koja treba izbegavati
-    Zaustaviti i restartovati igru kada loptica udari u pogresno polje
-    Ubaciti random generisanje prepreka
-    
-*************************************
-    
+3. nedelja:
+    Animirano je odskakanje loptice kada udari u prepreku
+    Ubaceno je registrovanje udarca,tj da li loptica treba da propadne
+    Postavljena su neka polja koja treba izbegavati
+    Namesteno je da kada loptica udari u crveno polje igra se resetuje
+
+**********************************************************************
