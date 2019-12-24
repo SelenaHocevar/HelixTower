@@ -9,7 +9,7 @@
 /*Pomocna funkcija za crtanje valjka*/
 void set_normal_and_vertex(float u, float v)
 {
-    
+
     glNormal3f(
             sin(v),
             0,
@@ -43,7 +43,7 @@ void draw_Sphere()
     float u, v;
 
     glPushMatrix();
-    
+
     //glTranslatef(0,-3,0);
     for (u = 0; u < PI*2; u += PI / 200) {
         glBegin(GL_TRIANGLE_STRIP);
@@ -54,7 +54,7 @@ void draw_Sphere()
         glEnd();
     }
 
-    
+
     glPopMatrix();
 }
 
@@ -67,7 +67,7 @@ void draw_Cylinder()
     glPushMatrix();
 
     glTranslatef(0,-10,0);
-    for (u = 0; u < PI*6; u += PI / 200) {
+    for (u = 0; u < PI*12; u += PI / 20) {
         glBegin(GL_TRIANGLE_STRIP);
         for (v = 0; v <= PI*2 + EPSILON; v += PI / 20) {
             set_normal_and_vertex(u, v);
@@ -76,6 +76,6 @@ void draw_Cylinder()
         glEnd();
     }
 
-    
+
     glPopMatrix();
 }
