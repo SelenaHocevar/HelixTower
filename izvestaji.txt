@@ -9,7 +9,7 @@
     Postavljene su pocetne prepreke
     Ubacene su osnovne komande za pomeranje prepreka
     Zapocet rad na animaciji loptice
-    
+
 **********************************************************************
 
 3. nedelja:
@@ -19,3 +19,10 @@
     Namesteno je da kada loptica udari u crveno polje igra se resetuje
 
 **********************************************************************
+
+4. nedelja:
+    Promenjen je nacin odredjivanja da li je loptica udarila u zid ili prepreku
+    (sada radi za proizvolje uglove i velicine prepreka)
+    Ubaceno je random generisanje prepreka i zidova
+    Ubacena je nova vrsta prepreke
+    Postavljeno je ispisivanje rezultata
