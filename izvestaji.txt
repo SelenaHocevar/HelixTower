@@ -26,3 +26,12 @@
     Ubaceno je random generisanje prepreka i zidova
     Ubacena je nova vrsta prepreke
     Postavljeno je ispisivanje rezultata
+
+**********************************************************************
+
+5. nedelja:
+    Dodate su teksture
+    Horizontalne prepreke su pretvorene u bodlje
+    Ubacen je ispis teksta na kraju igre
+    Osnovne informacije i kontrole su ispisane u gornjem desnom uglu
+    Ubacena je animacija vertikalnih prepreka
