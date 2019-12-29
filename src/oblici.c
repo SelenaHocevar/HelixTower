@@ -15,6 +15,8 @@ void set_normal_and_vertex(float u, float v)
             0,
             cos(v)
             );
+        
+    glTexCoord2f(sin(v)*0.5+0.5, u*0.5+0.5);
     glVertex3f(
             sin(v),
             u,
@@ -30,6 +32,7 @@ void set_normal_and_vertexSphere(float u, float v)
             cos(u),
             sin(u) * cos(v)
             );
+    glTexCoord2f(sin(u) * sin(v)/6*0.1+0.5, sin(u) * cos(v)/6*0.1+0.5);
     glVertex3f(
             sin(u) * sin(v)/6,
             cos(u)/6,
@@ -79,3 +82,4 @@ void draw_Cylinder()
 
     glPopMatrix();
 }
+
