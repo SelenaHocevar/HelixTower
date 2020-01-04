@@ -32,6 +32,15 @@
 5. nedelja:
     Dodate su teksture
     Horizontalne prepreke su pretvorene u bodlje
-    Ubacen je ispis teksta na kraju igre
+    Ubacen je ispis teksta kada igrac izgubi
     Osnovne informacije i kontrole su ispisane u gornjem desnom uglu
-    Ubacena je animacija vertikalnih prepreka
+
+**********************************************************************
+
+6. nedelja:
+    Ubacen je portal,kada se prodje kroz portal menjaju se teksture,pojavljuje se vise prepreka i loptica se krece brze
+    Dodato je registrovanje udarca za drugu vrstu zida
+    Dodata je platforma na dnu tornja
+    Dodat je tekst koji se pojavljuje kada se predje nivo
+
+
