@@ -70,7 +70,7 @@ void draw_Cylinder()
     glPushMatrix();
 
     glTranslatef(0,-10,0);
-    for (u = 0; u < PI*12; u += PI / 20) {
+    for (u = 0; u < PI*18; u += PI / 20) {
         glBegin(GL_TRIANGLE_STRIP);
         for (v = 0; v <= PI*2 + EPSILON; v += PI / 20) {
             set_normal_and_vertex(u, v);
