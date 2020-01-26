@@ -1,4 +1,9 @@
 /*
+ Preuzeto sa:
+ http://www.matf.bg.ac.rs/p/rastko-djordjevic/cas/2805/cas-7/
+ */
+
+/*
  * Dve strukture koje opisuju strukturu dva zaglavlja
  * kojima pocinje svaka slika u bmp formatu.
  */

@@ -28,31 +28,6 @@ void nacrtaj_zid_1(float angle,float kraj_zida,int i){
 }
 
 
-
-
-/*Funkcija za crtanje okvira za prvu vrstu zida*/
-void nacrtaj_okvir_1(float angle,float kraj_zida,int i){
-    glPushMatrix();
-    
-    //Postavlja se boja
-    glColor3f(0.8,0.8,0.8);
-    
-    //Postavlja se debljina linije
-    glLineWidth(3);
-    
-    //Rotira se da bi se poklopila sa zidom
-    glRotatef(angle*abs(i),0,1,0);
-    
-    //Crta se linija
-    glBegin(GL_LINE_STRIP);
-    for (float v = 0; v <= kraj_zida; v += PI / 20)
-        glVertex3f(sin(v)*2.501,i,cos(v)*2.501);
-    glEnd();
-    
-    glPopMatrix();
-}
-
-
 /*Funkcija koja crta dva odvojena zida na istoj visini*/
 void nacrtaj_zid_2(float angle,float pocetak_prvog,float kraj_prvog,float pocetak_drugog,float kraj_drugog,int i){
     
@@ -90,8 +65,32 @@ void nacrtaj_zid_2(float angle,float pocetak_prvog,float kraj_prvog,float poceta
 }
 
 
+
+/*Funkcija za crtanje okvira za prvu vrstu zida*/
+void nacrtaj_okvir_1(float angle,float kraj_zida,int i){
+    glPushMatrix();
+    
+    //Postavlja se boja
+    glColor3f(0.8,0.8,0.8);
+    
+    //Postavlja se debljina linije
+    glLineWidth(3);
+    
+    //Rotira se da bi se poklopila sa zidom
+    glRotatef(angle*abs(i),0,1,0);
+    
+    //Crta se linija
+    glBegin(GL_LINE_STRIP);
+    for (float v = 0; v <= kraj_zida; v += PI / 20)
+        glVertex3f(sin(v)*2.501,i,cos(v)*2.501);
+    glEnd();
+    
+    glPopMatrix();
+}
+
+
 /* Funkcija za crtanje bodlji */
-void nacrtaj_bodlje(int i,float pocetak_prepreke,float kraj_prepreke,int prosao_kroz_portal){
+void nacrtaj_bodlje(int i,float pocetak_prepreke,int prosao_kroz_portal){
     glPushMatrix();
     
     glRotatef(30*abs(i), 0, 1, 0);
@@ -128,37 +127,12 @@ void nacrtaj_bodlje(int i,float pocetak_prepreke,float kraj_prepreke,int prosao_
             glPopMatrix();
         }
         
-        glPopMatrix();
+    glPopMatrix();
 }
 
 
-/*Vertikalna prepreka?*/
-/*
- * void nacrtaj_vertikalnu_prepreku(int i,float animation_parameter){
- *    glPushMatrix();
- * 
- * 
- *    double clip_plane[] = {0, -1, 0, animation_parameter+i};
- * 
- *    glClipPlane(GL_CLIP_PLANE0, clip_plane);
- *    glEnable(GL_CLIP_PLANE0);
- * 
- * 
- *    //glRotatef(30*abs(i),0,1,0);
- *    glTranslatef(0,i+1.2,1.8);
- *    glRotatef(-90,0,1,0);
- *    glScalef(1.5,2.4,0.2);
- *    glColor3f(0,0.5,0.5);
- *    glutSolidCube(1);
- * 
- * 
- *    glDisable(GL_CLIP_PLANE0);
- *    glPopMatrix();
- * }*/
-
-
 /* Funkcija za crtanje portala  */
-void nacrtaj_portal(int i,float angle){
+void nacrtaj_portal(int i){
     glPushMatrix();
     
     /*Svaki sledeci portal je rotiran za jos 30 stepeni*/

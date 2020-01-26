@@ -6,7 +6,7 @@
 #define PI 3.1415926535
 #define EPSILON 0.01
 
-/*Pomocna funkcija za crtanje valjka*/
+/*Pomocna funkcija za crtanje valjka. Postavlja koordinate i normale temena cilindra, u zavisnosti od parametara u i v */
 void set_normal_and_vertex(float u, float v)
 {
 
@@ -15,8 +15,10 @@ void set_normal_and_vertex(float u, float v)
             0,
             cos(v)
             );
-        
+    
+    /*Postavljaju se koordinate za teksturu*/
     glTexCoord2f(sin(v)*0.5+0.5, u*0.5+0.5);
+    
     glVertex3f(
             sin(v),
             u,
@@ -24,15 +26,20 @@ void set_normal_and_vertex(float u, float v)
             );
 }
 
-/*Pomocna funkcija za crtanje lopte*/
+
+/* Pomocna funkcija za crtanje lopte. Postavlja koordinate i normale temena sfere, u zavisnosti od parametara u i v */
 void set_normal_and_vertexSphere(float u, float v)
 {
+    
     glNormal3f(
             sin(u) * sin(v),
             cos(u),
             sin(u) * cos(v)
             );
+    
+    /*Postavljaju se koordinate za teksturu*/
     glTexCoord2f(sin(u) * sin(v)/6*0.1+0.5, sin(u) * cos(v)/6*0.1+0.5);
+    
     glVertex3f(
             sin(u) * sin(v)/6,
             cos(u)/6,
@@ -47,7 +54,6 @@ void draw_Sphere()
 
     glPushMatrix();
 
-    //glTranslatef(0,-3,0);
     for (u = 0; u < PI*2; u += PI / 200) {
         glBegin(GL_TRIANGLE_STRIP);
         for (v = 0; v <= PI*2 + EPSILON; v += PI / 20) {

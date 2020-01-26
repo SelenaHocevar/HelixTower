@@ -43,4 +43,5 @@
     Dodata je platforma na dnu tornja
     Dodat je tekst koji se pojavljuje kada se predje nivo
 
+**********************************************************************
 

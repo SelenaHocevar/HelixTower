@@ -1,7 +1,9 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include <math.h>
+#include <stdio.h>
 #include "funkcije.h"
+#include <GL/freeglut.h>
 
 #define PI 3.1415926535
 #define EPSILON 0.01
@@ -89,7 +91,7 @@ void game_over(float y_loptica){
     glPopMatrix();
 }
 
-void you_win(float y_loptica){
+void you_win(){
     
     glPushMatrix();
     

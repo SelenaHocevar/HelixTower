@@ -22,17 +22,13 @@
 
 static float phi, pocetak, kraj, angle;
 static float y_loptica, v_y, visina_lopte;
-static int u = 0, d = 1, animation_ongoing, p, score = 0, k, gameover;
+static int u = 0, d = 1, animation_ongoing, p, score = 0, k;
 static float kraj_zida[15], matrix[16];
 char buffer[20];
 static GLuint names[4];
-float animation_param,v_param;
-float pocetak_zida_1;
-float kraj_zida_1;
-float pocetak_zida_2;
-float kraj_zida_2;
+float pocetak_zida_1, kraj_zida_1, pocetak_zida_2, kraj_zida_2;
 int prosao_kroz_portal = 0;
-int youwin = 0;
+int youwin = 0, gameover;
 
 static void on_keyboard(unsigned char key, int x, int y);
 static void on_reshape(int width, int height);
@@ -85,6 +81,7 @@ int main(int argc, char **argv)
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, model_ambient);
 
     
+    /* Pozadina */
     glClearColor(1, 1, 1, 1);
 
     
@@ -97,7 +94,7 @@ int main(int argc, char **argv)
     /*Pozicija prvog zida*/
     p = 36;
 
-    /**/
+    /*Indikator da li se menja visina loptice*/
     visina_lopte = 1;
 
     /*Indikator da li je igrac izgubio*/
@@ -112,9 +109,6 @@ int main(int argc, char **argv)
 
     /*Teksture*/
     textures();
-
-    animation_param = 0;
-    v_param = 0.05;
 
     /* Program ulazi u glavnu petlju. */
     glutMainLoop();
@@ -180,15 +174,9 @@ static void on_keyboard(unsigned char key, int x, int y)
 
 static void on_timer(int value){
 
+    /* Proverava se da li callback dolazi od odgovarajuceg tajmera */
     if(value != TIMER_ID)
         return ;
-
-    /*Parametar koji utice na podizanje i spustanje zidova*/
-    animation_param+=v_param;
-    if(animation_param >= 2)
-        v_param*=-1;
-    if(animation_param <= 0)
-        v_param*=-1;
     
     
     /*Smanjuje se y koor loptice tj. ona pada*/
@@ -205,30 +193,18 @@ static void on_timer(int value){
     if(m >= 360)
         m -= 360;
     
-    
-    /*Ako se na trenutnom zidu nalazi vertikalna prepreka*/
-//     if(abs(p%2)==1){
-//         /*X pozicija vertikalnog zida*/
-//         float poz_zida = sin(phi*2*PI/360) * 2.5;
-//         printf("%.3f %.3f\n",poz_zida,phi);
-//         
-//         /*Ako je zid podignut vise od trenutne pozicije loptice ona se odbija od njega, inace ga preskace*/
-//         if(poz_zida <= 0.6 && poz_zida >=-0.6 && animation_param > y_loptica-p)
-//             if(poz_zida >= 0)
-//                 phi-=30;
-//             else
-//                 phi+=30;
-//     }
+
   
-    
+    /* Detektovanje da li je loptica prosla kroz portal */
     if(abs(p%2) == 1){
         float poz_zida = sin(m*2*PI/360) * 2.5;
         float poz_zida_z = cos(m*2*PI/360) * 2.5;
-        printf("%.3f\n",poz_zida);
-        if(poz_zida <= 0.3 && poz_zida >= -0.3 && poz_zida_z > 0 )
+        
+        if(poz_zida <= 0.6 && poz_zida >= -0.6 && poz_zida_z > 0 )
             prosao_kroz_portal = 1;
     }
     
+    /*U zavisnosti od vrste zida postavlja se odgovarajuci uslov koji se treba ispuniti da loptica prodje kroz zid*/
     bool t;
         if(p%2 == 0)
           t = (pozicija(kraj_zida_2, m) <= 0 && pozicija(pocetak_zida_1, m) > 0) || (pozicija(kraj_zida_1, m) <= 0 && pozicija(pocetak_zida_2, m) > 0);
@@ -236,7 +212,7 @@ static void on_timer(int value){
           t = pozicija(kraj_zida[k], m) <= 0 && pozicija(0, m) > 0;
 
     
-    
+    /*Ako loptica dodje do dna vracaju se teksture na staro i ispisuje se poruka za kraj igre*/
     if(y_loptica <= -2){
         prosao_kroz_portal = 0;
         youwin = 1;
@@ -247,27 +223,29 @@ static void on_timer(int value){
         visina_lopte = 1;
     
         /*Trenutak kada loptica udari u zid*/
-        if(prosao_kroz_portal && y_loptica <= p + 0.3 || y_loptica <= p + 0.2 ){
+        if((prosao_kroz_portal && y_loptica <= p + 0.3) || (y_loptica <= p + 0.2) ){
 
-            //Uslov koji proverava da li je loptica udarila u bodlje
-          if( pozicija(pocetak,m) < 0 && pozicija(kraj,m) > 0.5 && p >= 0 || prosao_kroz_portal && pozicija(PI/6,m) < 0 && pozicija(3*PI/6,m) > 0.5 && p >= 0){
+          /* Uslov koji proverava da li je loptica udarila u bodlje */
+          if( (pozicija(pocetak,m) < 0 && pozicija(kraj,m) > 0.5 && p >= 0) || (prosao_kroz_portal && pozicija(PI/6,m) < 0 && pozicija(3*PI/6,m) > 0.5 && p >= 0)){
                 delay(500);
                 animation_ongoing = 0;
                 gameover = 1;
 
-            //Uslov za prolazak na sledeci zid
+          /* Uslov za prolazak na sledeci zid */
           }else if(t){
                 p -= 3;
                 score++;
                 k++;
 
-            //Loptica je udarila u zid i odbila se
+            /* Loptica je udarila u zid i odbila se */
             }else{
                 visina_lopte = 0.75;
                 
+                /* Kada loptica prodje kroz portal brzina joj se povecava*/
                 if(prosao_kroz_portal)
                    v_y=0.25; 
                 
+                /* Menjamo joj smer kretanja */
                 v_y *= (-1);
                 u = 1;
                 d = 0;
@@ -277,6 +255,7 @@ static void on_timer(int value){
     /*Ako se loptica krece nagore*/
     }else if(u){
         visina_lopte = 1;
+        /* Kada dodje do odredjene visine u odnosu na zid u koji je udarila krece da pada*/
         if(y_loptica >= p + 1.7 ){
             v_y *= (-1);
             d = 1;
@@ -284,9 +263,10 @@ static void on_timer(int value){
         }
     }
 
-    
+    /* Forsira se ponovno iscrtavanje prozora. */
     glutPostRedisplay();
 
+    /* Po potrebi se ponovo postavlja tajmer. */
     if(animation_ongoing){
         glutTimerFunc(TIMER_INTERVAL,on_timer,TIMER_ID);
     }
@@ -428,7 +408,7 @@ static void on_display(void)
     glPushMatrix();
     
     /*Platforma se ne vidi dok ne dodjemo do dna*/
-    double clip_plane[] = {0, -1, 0, -y_loptica + 3};
+    double clip_plane[] = {0, -1, 0, -y_loptica + 15};
 
     glClipPlane(GL_CLIP_PLANE0, clip_plane);
     glEnable(GL_CLIP_PLANE0);
@@ -440,13 +420,13 @@ static void on_display(void)
         /*Crtamo platformu*/
         glBegin(GL_QUADS);
         glTexCoord2f(0, 0);
-        glVertex3f(-25, -3, 0);
+        glVertex3f(-35, -3, -5);
         glTexCoord2f(4, 0);
-        glVertex3f(25, -3, 0);
+        glVertex3f(35, -3, -5);
         glTexCoord2f(4, 4);
-        glVertex3f(25, -3 ,8);
+        glVertex3f(35, -3 ,8);
         glTexCoord2f(0, 4);
-        glVertex3f(-25, -3, 8);
+        glVertex3f(-35, -3, 8);
         glEnd();
         
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -510,17 +490,19 @@ static void on_display(void)
     
     for(int i = 0; i <= 36; i += 3){
         
-        nacrtaj_bodlje(i, pocetak, kraj, prosao_kroz_portal);
+        nacrtaj_bodlje(i, pocetak, prosao_kroz_portal);
         
+        /* Ako je prosao kroz portal crtamo dodatne prepreke */
         if(prosao_kroz_portal)
-            nacrtaj_bodlje(i,PI/6,0 + 3*PI/6,prosao_kroz_portal);
+            nacrtaj_bodlje(i,PI/6,prosao_kroz_portal);
         
         if(abs(i % 2) == 1){
             /* Ukljucujemo teksturu */
             glBindTexture(GL_TEXTURE_2D, names[5]);
             
+            /* Portali se ne crtaju nakon sto prodje kroz jedan */
             if(!prosao_kroz_portal)
-                nacrtaj_portal(i, angle);
+                nacrtaj_portal(i);
             
             /* Iskljucujemo aktivnu teksturu */
             glBindTexture(GL_TEXTURE_2D, 0);
@@ -543,7 +525,7 @@ static void on_display(void)
     
     /* Crtamo portal samo ako je loptica pre toga prosla kroz jedan */
     if(prosao_kroz_portal)
-        nacrtaj_portal(-3, 0);
+        nacrtaj_portal(-3);
     
     /* Iskljucujemo aktivnu teksturu */
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -575,6 +557,7 @@ static void on_display(void)
     glScalef(1,visina_lopte,1);
     
     glColor3f(0.5,0,0);
+    
     /* Crta se loptica */
     draw_Sphere();
     
@@ -592,7 +575,7 @@ static void on_display(void)
     
     /*Ako je igrac pobedio ispisuje se odgovorajuca poruka*/
     if(youwin)
-        you_win(y_loptica);
+        you_win();
 
     
     /* Ispisuje se trenutni rezultat. */
