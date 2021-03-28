@@ -1,4 +1,4 @@
-# RG75-bouncy-ball
+# RG75-helix
 Bouncy Ball
 
 ### :memo: Opis:
